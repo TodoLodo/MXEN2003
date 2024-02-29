@@ -3,15 +3,12 @@
 int main(void)
 {
     DDRA = 0xFF; // put PORTA into output mode
-    PORTA = 0; // sets all 8 pins to LOW
 
     /* 
     * The two LEDs are connected to pin 22 and 23
     * These pins are controlled by manupilation the first 2 LSBs of PORTA
     * To set HIGH and LOW alternatively PORTA should alternate between 0b00000001 and 0b00000010 (1 and 2) 
     */
-
-
     while (1) // main loop
     {
         _delay_ms(500);      // 500 millisecond delay
