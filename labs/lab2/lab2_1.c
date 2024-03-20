@@ -21,8 +21,6 @@ int main()
     if (PINC & (1)) // if PINC0 is high
     {
       lastButtonState = true;
-      // PORTA = 2;
-      // PORTL = 0;
     }
     else if (lastButtonState) // if PINC0 is low (when the button is pressed in the active low configuration)
     {
