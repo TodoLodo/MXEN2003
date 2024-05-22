@@ -37,6 +37,12 @@ uint32_t milliseconds_now(void)
 	return m;
 }
 
+void milliseconds_reset(void) {
+	milliseconds = 0;
+	TCNT5 = 0;
+}
+
+
 ISR(TIMER5_COMPA_vect)
 {
 	//interrupt flag in ICF1 will be automatically cleared
