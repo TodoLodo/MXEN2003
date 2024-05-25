@@ -26,6 +26,7 @@
 #include "adc.h"		  //minimal adc lib
 #include "milliseconds.h" //milliseconds timekeeping lib
 #include "hd44780.h"	  //LCD lib
+#include "motor.h"
 
 // constants
 #define BUILD_DATE __TIME__ " " __DATE__ "\n"
@@ -43,40 +44,6 @@ void button_init();
  * @brief Functions for motor operations and data.
  * @{
  */
-
-/**
- * @struct Motor
- * @brief Contains data of each left and right motors
- *
- * @author Todo Lodo
- */
-typedef struct
-{
-	/**
-	 * @var unsigned int l_val
-	 * @brief speed magnitude of left motor.
-	 */
-	unsigned int l_val : 9;
-
-	/**
-	 * @var unsigned int r_val
-	 * @brief speed magnitude of right motor.
-	 */
-	unsigned int r_val : 9;
-
-	/**
-	 * @var unsigned int l_dir
-	 * @brief direction indicator of left motor.
-	 */
-	unsigned int l_dir : 1;
-
-	/**
-	 * @var unsigned int r_dir
-	 * @brief direction indicator of left motor.
-	 */
-	unsigned int r_dir : 1;
-
-} Motor;
 
 /**
  * @brief Compute each motor speed and direction.
