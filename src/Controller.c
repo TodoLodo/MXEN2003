@@ -20,6 +20,7 @@
  */
 volatile uint8_t camera_angle[] = {90, 90};
 volatile uint8_t auto_state = 0;
+volatile uint8_t speed_state = 0;
 volatile uint8_t battery_level;
 
 int main(void)
@@ -32,7 +33,7 @@ int main(void)
 	button_init(); // for external interrupts on INT1, INT2 & INT2
 	adc_init();
 	serial0_init(); // for serial monitor
-	serial1_init(); // for xbee comminucation with the robo
+	serial2_init(); // for xbee comminucation with the robo
 
 	sei();
 
@@ -47,15 +48,15 @@ int main(void)
 			computeMotorSpeeds(&motor);
 			computeCameraAngles(camera_angle);
 
-			serial1_write_byte(255); // send start
+			serial2_write_byte(255); // send start
 
-			send_bits = ((uint64_t)1 << 37) | ((uint64_t)auto_state << 36) | ((uint64_t)compressCameraData(camera_angle) << 20) | ((uint64_t)compressMotorData(motor) << 0);
+			send_bits = ((uint64_t)speed_state << 37) | ((uint64_t)auto_state << 36) | ((uint64_t)compressCameraData(camera_angle) << 20) | ((uint64_t)compressMotorData(motor) << 0);
 			for (uint8_t i = 0; i < 6; i++)
 			{
-				serial1_write_byte((uint8_t)(send_bits >> (i * 7)));
+				serial2_write_byte((uint8_t)(send_bits >> (i * 7)) & ~(1<<7));
 			}
 
-			serial1_write_byte(254); // send end
+			serial2_write_byte(254); // send end
 
 			sprintf(serial_str, "Motor<(%u, %3u)L (%u, %3u)R>, Camera<(%3u)X (%3u)Y>\n", motor.l_dir, motor.l_val, motor.r_dir, motor.r_val, camera_angle[0], camera_angle[1]);
 			serial0_print_string(serial_str);
@@ -76,6 +77,7 @@ int main(void)
  */
 ISR(INT0_vect)
 {
+	speed_state = !speed_state;
 }
 
 /**
@@ -105,8 +107,9 @@ ISR(INT2_vect)
 	auto_state = !auto_state;
 }
 
-// FUNCTIONS
+// TODO:ISR for RX2
 
+// FUNCTIONS
 void button_init()
 {
 
