@@ -18,9 +18,13 @@
 #include "adc.h" //minimal adc lib
 #include "milliseconds.h" //milliseconds timekeeping lib
 #include "hd44780.h" //LCD lib
+#include "motor.h"
 
 
 //constants
 #define BUILD_DATE __TIME__ " " __DATE__"\n"
+
+void led_init();
+void led_control();
 
 #endif /* ATMEGA2560_H_ */
