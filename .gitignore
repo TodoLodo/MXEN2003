@@ -1,4 +1,6 @@
 .vscode/
 .pio/
 labs/
+test/
+html/
 Doxyfile
