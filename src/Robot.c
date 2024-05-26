@@ -38,6 +38,8 @@ int main(void)
 			// TODO: manual control operations
 		}
 		
+		// TODO: data transmission to controller (sensor readings and battery level)
+
 	}
 	return (1);
 } // end main
@@ -83,3 +85,4 @@ void led_control()
 	//     |       auto ON       |       auto OFF       |       speed 0        |       speed 1        |
 	PORTA |= (auto_state << PA0) | (!auto_state << PA1) | (speed_state << PA2) | (!speed_state << PA3);
 }
+
