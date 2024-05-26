@@ -24,7 +24,19 @@
 //constants
 #define BUILD_DATE __TIME__ " " __DATE__"\n"
 
-void led_init();
-void led_control();
+// TODO: docstring 
+void motorInit();
+
+// TODO: docstring 
+void ledInit();
+
+// TODO: docstring 
+void ledUpdate();
+
+// TODO: docstring 
+void decompressMotorData(uint32_t _data);
+
+// TODO: docstring 
+void decompressCameraData(uint16_t _data);
 
 #endif /* ATMEGA2560_H_ */
