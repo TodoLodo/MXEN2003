@@ -49,7 +49,7 @@ int main(void)
 
 		// TODO: data TX2 to controller (sensor readings and battery level)
 
-		motoUpdate();
+		motoUpdate(); // ? testing required
 	}
 	return (1);
 } // end main
@@ -110,6 +110,7 @@ uint16_t _OCRValue(uint8_t _duty_cycle)
 // TODO: docstring 
 void motoUpdate()
 {
+	// ? could reduce code line, and add further comments once finalised ?
 	uint8_t _duty_cycle_l = (motor.l_val / 511) * 100;
 	uint8_t _duty_cycle_r = (motor.r_val / 511) * 100;
 
