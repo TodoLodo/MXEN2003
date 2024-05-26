@@ -54,12 +54,14 @@ int main(void)
 	return (1);
 } // end main
 
-// TODO: docstring 
+// TODO: docstring
 ISR(USART2_RX_vect)
 {
 	static uint8_t rx_index;
 	static uint64_t recieved_bits;
 	uint8_t recieved_byte = UDR2;
+
+	PORTA ^= (1 << PA4);
 
 	if (recieved_byte != 255 && recieved_byte != 254)
 	{
@@ -85,7 +87,12 @@ ISR(USART2_RX_vect)
 	}
 }
 
-// TODO: docstring 
+ISR(USART2_TX_vect)
+{
+	PORTA ^= (1 << PA5);
+}
+
+// TODO: docstring
 void motorInit()
 {
 	// Set Fast PWM mode with ICR1 as TOP value (mode 14)
@@ -107,7 +114,7 @@ uint16_t _OCRValue(uint8_t _duty_cycle)
 	return (_duty_cycle * (ICR1 + 1) / 100) - 1;
 }
 
-// TODO: docstring 
+// TODO: docstring
 void motoUpdate()
 {
 	// ? could reduce code line, and add further comments once finalised ?
@@ -118,25 +125,25 @@ void motoUpdate()
 	OCR1B = _OCRValue(_duty_cycle_r);
 }
 
-// TODO: docstring 
+// TODO: docstring
 void ledInit()
 {
-	DDRA |= (1 << PA0) | (1 << PA1) | (1 << PA2) | (1 << PA3);
-	PORTA |= (1 << PA0) | (1 << PA1) | (1 << PA2) | (1 << PA3);
+	//    |   manual   |    auto    |  speed 0   |  speed 1   |    RX2     |    TX2    |
+	DDRA |= (1 << PA0) | (1 << PA1) | (1 << PA2) | (1 << PA3) | (1 << PA4) | (1 << PA5);
 
+	PORTA |= (1 << PA0) | (1 << PA1) | (1 << PA2) | (1 << PA3) | (1 << PA4) | (1 << PA5);
 	_delay_ms(1000);
-
 	PORTA = 0;
 }
 
-// TODO: docstring 
+// TODO: docstring
 void ledUpdate()
 {
 	//    |   auto or manual   |   spead state 0 or 1  |
 	PORTA |= (1 << auto_state) | (1 << 2 + speed_state);
 }
 
-// TODO: docstring 
+// TODO: docstring
 void decompressMotorData(uint32_t _data)
 {
 	motor.l_val = _data;
@@ -145,7 +152,7 @@ void decompressMotorData(uint32_t _data)
 	motor.r_dir - _data >> 11;
 }
 
-// TODO: docstring 
+// TODO: docstring
 void decompressCameraData(uint16_t _data)
 {
 	camera_angle[0] = _data;
