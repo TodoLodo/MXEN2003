@@ -1,3 +1,6 @@
+#ifndef MOTOR_H_
+#define MOTOR_H_
+
 /**
  * @defgroup MotorStruct Motor Struct
  * @brief Motor Struct for both Controller and Motor.
@@ -41,3 +44,5 @@ typedef struct
 /**
  * @}
  */
+
+#endif
