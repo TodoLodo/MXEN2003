@@ -1,8 +1,7 @@
-.vscode/
 .pio/
-assesment/
-labs/
-test/
-html/
-latex/
-Doxyfile
+.vscode/
+*.o
+*.d
+*.elf
+*.hex
+*.map
